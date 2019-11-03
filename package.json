@@ -1,0 +1,10 @@
+{
+  "name": "kafka-keyvalue-demo",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "type": "module",
+  "author": "Yolean AB",
+  "dependencies": {
+    "@yolean/kafka-keyvalue": "1.1.0"
+  }
+}

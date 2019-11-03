@@ -1,0 +1,19 @@
+apiVersion: skaffold/v1beta13
+kind: Config
+build:
+  artifacts:
+  - image: builds-registry.ystack.svc.cluster.local/yolean/kafka-keyvalue-nodejs-demo
+    context: .
+    custom:
+      buildCommand: y-build
+      dependencies:
+        dockerfile:
+          path: ./Dockerfile
+    # sync:
+    #   manual:
+    #   - src: src/**
+    #     dest: src
+    #     strip: src
+deploy:
+  kustomize:
+    path: ./variant-dev
