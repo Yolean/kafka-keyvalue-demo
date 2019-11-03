@@ -4,8 +4,12 @@ metadata:
   name: kafka-keyvalue-nodejs--sidecar-demo
 spec:
   ports:
-    - port: 8080
+    - name: demo
+      port: 8080
       targetPort: 8080
+    - name: kkv
+      port: 8091
+      targetPort: 8091
   selector:
     app: kafka-keyvalue-nodejs--sidecar-demo
 ---

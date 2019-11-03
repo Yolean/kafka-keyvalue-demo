@@ -1,0 +1,42 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  "globals": {
+    "self": true,
+    "describe": true,
+    "before": true,
+    "beforeEach": true,
+    "after": true,
+    "afterEach": true,
+    "it": true,
+    "postMessage": true,
+    "onmessage": true,
+    "expect": true
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "rules": {
+    "comma-style": [
+      2,
+      "last"
+    ],
+    "linebreak-style": 2,
+    "no-undef": 2,
+    "strict": 0,
+    "semi": ["error", "always"],
+    "no-empty": ["error", { "allowEmptyCatch": true }],
+    "no-console": "off",
+    "no-unused-vars": ["error", { "args": "none" }],
+    "no-useless-escape": "off",
+    "no-extra-boolean-cast": "off"
+  }
+}

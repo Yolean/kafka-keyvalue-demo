@@ -6,6 +6,8 @@ spec:
   selector:
     matchLabels:
       app: kafka-keyvalue-nodejs--sidecar-demo
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -38,15 +40,17 @@ spec:
             --replication-factor 1 \
             --config compression.type=uncompressed;
       containers:
-      - name: demo
-        image: builds-registry.ystack.svc.cluster.local/yolean/kafka-keyvalue-nodejs-demo
-        ports:
-        - containerPort: 8080
-        env:
-        - name: PIXY_HOST
-          value: http://pixy.kafka
-        - name: USER_CACHE_HOST
-          value: http://127.0.0.1:8091
+      # - name: demo
+      #   image: builds-registry.ystack.svc.cluster.local/yolean/kafka-keyvalue-nodejs-demo
+      #   ports:
+      #   - containerPort: 8080
+      #   env:
+      #   - name: PIXY_HOST
+      #     value: http://pixy.kafka
+      #   - name: CACHE_HOST
+      #     value: http://127.0.0.1:8091
+      #   - name: TOPIC_NAME
+      #     value: sidecar-demo
       - name: kv-cache
         image: solsson/kafka-keyvalue@sha256:84f71897ec55e13014049c49dfd81e2f99635515b7c88326b6b09cc4d132c3d0
         args:
