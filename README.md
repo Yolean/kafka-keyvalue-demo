@@ -21,6 +21,8 @@ skaffold --kube-context ystack-k3s dev -n kkv-demo
 # Set up a toil container
 kubectl --context ystack-k3s -n kkv-demo run --restart=Never -ti --image yolean/toil@sha256:82c8cc8d082f40753d2e409a670e1dc34455b0e2143adff285cc4102b1326d11 toil
 # See that we can list kafka topics
+
+# TODO Use pixy instead
 kafkacat -b bootstrap.kafka:9092 -L
 
 # Produce a message
