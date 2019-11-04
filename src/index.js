@@ -1,7 +1,6 @@
 import express from 'express';
-import * as KafkaKeyValue from '@yolean/kafka-keyvalue';
-
-import * as promClient from 'prom-client';
+import KafkaKeyValue from '@yolean/kafka-keyvalue';
+import promClient from 'prom-client';
 
 const PORT = 8080;
 
@@ -13,16 +12,29 @@ function getEnvOrThrow(key) {
   return value;
 }
 
-const cache = new KafkaKeyValue({
+const cache = new KafkaKeyValue.default({
   cacheHost: getEnvOrThrow('CACHE_HOST'),
-  metrics: KafkaKeyValue.createMetrics(promClient.Counter, promClient.Gauge, promClient.Histogram),
+  metrics: KafkaKeyValue.default.createMetrics(promClient.Counter, promClient.Gauge, promClient.Histogram),
   pixyHost: getEnvOrThrow('PIXY_HOST'),
   topicName: getEnvOrThrow('TOPIC_NAME')
 });
 
 app.get('/:id', async (req, res) => {
   const config = await cache.get(req.params.id);
-  res.send(config);
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+      <title>KKV Demo</title>
+    </head>
+    <body>
+      <div style="background-color: ${config.color}">Hello Kafka!</div>
+    </body>
+    </html>
+  `);
 });
 
 app.listen(PORT);
