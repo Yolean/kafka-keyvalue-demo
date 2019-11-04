@@ -16,8 +16,21 @@ https://www.slideshare.net/KaiWaehner/service-mesh-with-apache-kafka-kubernetes-
 kubectl --context ystack-k3s create namespace kkv-demo
 # Set up services independently of deployments because we don't want them deleted during the development-loop
 kubectl --context ystack-k3s create -f variant-dev/services.yaml
+
+# Terimnal 1
 skaffold --kube-context ystack-k3s dev -n kkv-demo
+
+# Terminal 2
 kubectl --context ystack-k3s -n kkv-demo port-forward svc/kafka-keyvalue-nodejs--sidecar-demo 8080
+
+# Terminal 3
+kubectl --context ystack-k3s -n kkv-demo get all
+
+# Terminal 4
+kubectl --context ystack-k3s -n kkv-demo get pods -w
+
+# Terminal 5
+kubectl --context ystack-k3s -n kkv-demo run --restart=Never -ti --image yolean/toil@sha256:82c8cc8d082f40753d2e409a670e1dc34455b0e2143adff285cc4102b1326d11 toil
 ```
 
 ## Keywords (stuff that should probably be explained and/or understood)
@@ -36,13 +49,11 @@ kubectl --context ystack-k3s -n kkv-demo port-forward svc/kafka-keyvalue-nodejs-
 ## Demo "Script"
 
 ```sh
-# Set up a toil container
-kubectl --context ystack-k3s -n kkv-demo run --restart=Never -ti --image yolean/toil@sha256:82c8cc8d082f40753d2e409a670e1dc34455b0e2143adff285cc4102b1326d11 toil
-
 # Produce a message
 curl -X POST -H 'content-type: application/json' -d '{ "id": "A", "color": "red" }' http://pixy/topics/sidecar-demo/messages?key=A
 curl -X POST -H 'content-type: application/json' -d '{ "id": "B", "color": "blue" }' http://pixy/topics/sidecar-demo/messages?key=B
 
+# Different ways of consuming the message using our API
 curl http://kafka-keyvalue-nodejs--sidecar-demo:8091/cache/v1/keys
 curl http://kafka-keyvalue-nodejs--sidecar-demo:8091/cache/v1/values
 curl http://kafka-keyvalue-nodejs--sidecar-demo:8091/cache/v1/raw/A
