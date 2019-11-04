@@ -1,6 +1,6 @@
 # README.md
 
-Why? I'm trying to make sense of how and why we implemented KKV (TODO Link)
+Why? I'm trying to make sense of how and why we implemented [Kafka KeyValue (KKV)](https://github.com/Yolean/kafka-keyvalue)
 
 ## Goal
 
