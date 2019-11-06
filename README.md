@@ -6,8 +6,22 @@ Why? I'm trying to make sense of how and why we implemented [Kafka KeyValue (KKV
 
 Demonstrate how we built a never-stale, update-pushing key-value cache on top of kafka
 
-## Resources/Background/Motivation/Inspiration
-https://www.slideshare.net/KaiWaehner/service-mesh-with-apache-kafka-kubernetes-envoy-istio-and-linkerd
+## Pre-requisites
+
+In order to follow this example with 0 modifications, you need a Kubernetes cluster set up according to https://github.com/y-stack/ystack#cluster-setup
+
+## Keywords (stuff that should probably be explained and/or understood)
+
+* Kubernetes
+* Microservices
+* Pods
+* Containers
+* Kafka
+* Kafka Streams
+* Kafka Topic
+* Topic Partition
+* Keyed messages
+* Topic Compaction
 
 ## Setup
 
@@ -32,19 +46,6 @@ kubectl --context ystack-k3s -n kkv-demo get pods -w
 # Terminal 5
 kubectl --context ystack-k3s -n kkv-demo run --restart=Never -ti --image yolean/toil@sha256:82c8cc8d082f40753d2e409a670e1dc34455b0e2143adff285cc4102b1326d11 toil
 ```
-
-## Keywords (stuff that should probably be explained and/or understood)
-
-* Kubernetes
-* Microservices
-* Pods
-* Containers
-* Kafka
-* Kafka Streams
-* Kafka Topic
-* Topic Partition
-* Keyed messages
-* Topic Compaction
 
 ## Demo "Script"
 
