@@ -29,7 +29,7 @@ In order to follow this example with 0 modifications, you need a Kubernetes clus
 # Use our own namespace
 kubectl --context ystack-k3s create namespace kkv-demo
 # Set up services independently of deployments because we don't want them deleted during the development-loop
-kubectl --context ystack-k3s create -f variant-dev/services.yaml
+kubectl --context ystack-k3s -n kkv-demo create -f variant-dev/services.yaml
 
 # Terimnal 1
 skaffold --kube-context ystack-k3s dev -n kkv-demo
