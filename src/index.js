@@ -19,6 +19,8 @@ const cache = new KafkaKeyValue.default({
   topicName: getEnvOrThrow('TOPIC_NAME')
 });
 
+app.post(KafkaKeyValue.ON_UPDATE_DEFAULT_PATH, KafkaKeyValue.getOnUpdateRoute());
+
 app.get('/:id', async (req, res) => {
   const config = await cache.get(req.params.id);
   res.send(`
@@ -35,6 +37,10 @@ app.get('/:id', async (req, res) => {
     </body>
     </html>
   `);
+});
+
+cache.onUpdate((key, value) => {
+  console.log({ key, value }, 'Received update from KKV');
 });
 
 app.listen(PORT);

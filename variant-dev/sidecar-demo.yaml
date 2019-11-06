@@ -72,7 +72,7 @@ spec:
         - name: kafka_offset_reset
           value: latest
         - name: target
-          value: http://127.0.0.1/kafka-keyvalue/v1/updates
+          value: http://127.0.0.1:8080/kafka-keyvalue/v1/updates
         readinessProbe:
           httpGet:
             path: /health/ready
